@@ -2,20 +2,44 @@ import mongoose from "mongoose"
 import { Schema } from "mongoose"
 
 const courseSchema=new Schema({
-title:{
+title: {
+        type: String,
+        required: true,
+        trim: true
+    },
 
-},
-des:{
+    // Course Description
+    description: {
+        type: String,
+        required: true
+    },
 
-},
-category:{
+    // Course Category
+    category: {
+        type: String,
+        required: true
+    },
 
-},
-instrutor:{
+    // Course Price (0 = Free course)
+    price: {
+        type: Number,
+        default: 0
+    },
 
-},
-price:{
+    // Course Thumbnail Image later addting
+    // thumbnail: {
+    //     type: String,
+    //     default: ""
+    // },
 
-}
+    /**
+     * Instructor Reference
+     * Linking Course → User collection
+     */
+    instructor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    }
 },{timestamps:true})
 export const Course=mongoose.model("Course",courseSchema)
