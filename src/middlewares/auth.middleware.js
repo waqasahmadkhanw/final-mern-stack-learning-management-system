@@ -23,5 +23,27 @@ import jwt from "jsonwebtoken"
         
     }
     }
+//admin
+// ==========================================
+// ROLE AUTHORIZATION MIDDLEWARE
+// ==========================================
 
+// WHAT: Allow only specific roles
+// WHY: Reusable for admin, instructor, etc.
+// HOW: Pass allowed roles as arguments
+
+export const authorizeRoles = (...allowedRoles) => {
+  return (req, res, next) => {
+
+    if (!req.user) {
+      throw new ApiError(401,"Unauthorized")
+    }
+
+    if (!allowedRoles.includes(req.user.role)) {
+     throw new ApiError(401,"Access is denied")
+    }
+
+    next();
+  };
+};
 export default authUser
