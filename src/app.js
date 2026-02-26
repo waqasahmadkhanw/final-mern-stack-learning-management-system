@@ -17,7 +17,7 @@ app.use(cookieParser())
 
 
 //=====routes declarations====//
-import userRegRoute from "./controllers/routes/user.route.js"
+import userRegRoute from "./routes/user.route.js"
 app.use("/api/v1/user",userRegRoute)
 
 export default app

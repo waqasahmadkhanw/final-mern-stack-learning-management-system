@@ -39,9 +39,7 @@ refreshToken:{
 // WHY: Never store plain text passwords (security best practice)
 userSchema.pre("save", async function () {
   if (!this.isModified("password")) return null;
-
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+  this.password =await bcrypt.hash(this.password,10);
   // next();
 });
 //Compare password

@@ -6,10 +6,10 @@ import { User } from "../models/user.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import options from "../utils/Options.js";
-import generateAccessAndRefreshToken from "./generateAccessAndRefreshToken.controller.js";
-; // cookie options
+import options from "../utils/Options.js";// cookie options
  // helper function
+import generateAccessAndRefreshToken from "./generateAccessAndRefreshToken.controller.js";
+import jwt from "jsonwebtoken"; 
 
 // ===============================================
 // REGISTER USER
@@ -130,7 +130,7 @@ await User.findByIdAndUpdate(req.user?._id,{
   }
 },{new:true})
 return res.status(200)
-.clearCookier("refreshToken",options)
+.clearCookie("refreshToken",options)
 .clearCookie("accessToken",options)
 .json(
   new ApiResponse(200,{},"User logout successfully")
@@ -187,9 +187,9 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 // ===============================================
 const changeCurrentPassword = asyncHandler(async(req, res) => {
     const {oldPassword, newPassword} = req.body
-if(!oldPassword&&!newPassword){
-  throw new ApiError(401,"All fields are required")
-}
+// if(!oldPassword&&!newPassword){
+//   throw new ApiError(401,"All fields are required")
+// }
     const user = await User.findById(req.user?._id)
     const isPasswordCorrect = await user.isPasswordCorrect(oldPassword)
 
@@ -226,7 +226,6 @@ const updateAccountDetails = asyncHandler(async(req, res) => {
     if (!name || !email) {
         throw new ApiError(400, "All fields are required")
     }
-
     const user = await User.findByIdAndUpdate(
         req.user?._id,
         {
