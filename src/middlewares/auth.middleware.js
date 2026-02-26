@@ -34,7 +34,7 @@ import jwt from "jsonwebtoken"
 // HOW: Pass allowed roles as arguments
 
 export const authorizeRoles = (...allowedRoles) => {
-  return (req, res, next) => {
+  return (req,_, next) => {
 
     if (!req.user) {
       throw new ApiError(401,"Unauthorized")
