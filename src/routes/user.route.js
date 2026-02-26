@@ -16,9 +16,43 @@ import { createCourse, deleteCourse, getAllCourses, getSingleCourse, updateCours
 router.route("/getall-courses").get(getAllCourses)
 router.route("/:id").get(getSingleCourse)
 //======INSTRUCTOR ROUTES======//
-router.route("/create_course").post(authorizeRoles("instructor"),createCourse)
+router.route("/create-course").post(authorizeRoles("instructor"),createCourse)
 router.route("/:id").put(authorizeRoles("instructor"),updateCourse)
 //====== INSTRUCTOR OR ADMIN ROUTES=====//
-router.route("/delete-course").put(authUser,authorizeRoles("instructor", "admin"),deleteCourse)
+router.route("/delete-course").put(authUser,authorizeRoles("instructor","admin"),deleteCourse)
+
+// =============================================================
+ //            LESSON ROUTES
+ // ============================================================
+import { createLesson, deleteLesson, getLessonsByCourse, getSingleLesson, updateLesson } 
+from "../controllers/lesson.controller.js";
+ router.route("/course/:courseId").get(authUser,getLessonsByCourse)
+ router.route("/:id").post(authUser,getSingleLesson)
+//===========protected routes==========//
+ router.route("/create-lesson").post(authorizeRoles("instructor"),authUser,createLesson)
+ router.route("/:id").put(authorizeRoles("instructor"),authUser,updateLesson)
+ router.route("/:id").delete(authorizeRoles("instructor"),authUser,deleteLesson)
+/**
+ * ==========================================
+ * STUDENT ROUTES
+ * ==========================================
+ */
+import { enrollCourse, getMyCourses, updateProgress } from "../controllers/entrollment.controller.js";
+
+router.route("/enroll").post( authUser, authorizeRoles("student"),enrollCourse);
+routerroute("/my-courses").get(authUser,authorizeRoles("student"),getMyCourses);
+router.route("/progress/:enrollmentId").put(authUser,authorizeRoles("student"),updateProgress);
+
+/**
+ * ==========================================
+ * ADMIN ROUTES
+ * ==========================================
+ */
+import { deleteUser, getAllUsers, getAnalytics } from "../controllers/admin.controller.js";
+
+router.route("/users").get(authUser,authorizeRoles("admin"),getAllUsers);
+router.route("/users/:id").delete(authUser,authorizeRoles("admin"),deleteUser);
+
+router.route("/analytics").get(authUser,authorizeRoles("admin"),getAnalytics);
 
 export default router
