@@ -71,7 +71,7 @@ const loginUser = asyncHandler(async (req, res) => {
   // STEP 1: Get data from req.body
   // -------------------------------
   const { email, password } = req.body;
-  console.log("email..".req.body)
+  console.log("email..",req.body)
 
   // -------------------------------
   // STEP 2: Validate fields
@@ -83,7 +83,7 @@ const loginUser = asyncHandler(async (req, res) => {
   // -------------------------------
   // STEP 3: Find user in DB (include password)
   // -------------------------------
-  const user = await User.findOne({ email }).select("+password");
+  const user = await User.findOne({ email }).select("-password");
 
   if (!user) {
     throw new ApiError(404, "User does not exist");

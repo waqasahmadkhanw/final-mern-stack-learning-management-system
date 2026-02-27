@@ -24,14 +24,48 @@ router.route("/delete-course").put(authUser,authorizeRoles("instructor","admin")
 // =============================================================
  //            LESSON ROUTES
  // ============================================================
-import { createLesson, deleteLesson, getLessonsByCourse, getSingleLesson, updateLesson } 
-from "../controllers/lesson.controller.js";
- router.route("/course/:courseId").get(authUser,getLessonsByCourse)
- router.route("/:id").post(authUser,getSingleLesson)
-//===========protected routes==========//
- router.route("/create-lesson").post(authorizeRoles("instructor"),authUser,createLesson)
- router.route("/:id").put(authorizeRoles("instructor"),authUser,updateLesson)
- router.route("/:id").delete(authorizeRoles("instructor"),authUser,deleteLesson)
+import { createLesson, deleteLesson, getLessonsByCourse, getSingleLesson, updateLesson } from "../controllers/lesson.controller.js";
+ router
+  .route("/course/:courseId")
+  .get(authUser, getLessonsByCourse);
+
+
+/**
+ * ==========================================
+ * CREATE LESSON
+ * POST /api/lessons
+ * ==========================================
+ */
+router
+  .route("/")
+  .post(
+    authUser,
+    authorizeRoles("instructor"),
+    createLesson
+  );
+
+
+/**
+ * ==========================================
+ * GET SINGLE LESSON
+ * PUT LESSON
+ * DELETE LESSON
+ * /api/lessons/:id
+ * ==========================================
+ */
+router
+  .route("/:id")
+  .get(authUser, getSingleLesson)
+  .put(
+    authUser,
+    authorizeRoles("instructor"),
+    updateLesson
+  )
+  .delete(
+    authUser,
+    authorizeRoles("instructor"),
+    deleteLesson
+  );
 /**
  * ==========================================
  * STUDENT ROUTES
@@ -55,6 +89,6 @@ router.route("/users/:id").delete(authUser,authorizeRoles("admin"),deleteUser);
 
 router.route("/analytics").get(authUser,authorizeRoles("admin"),getAnalytics);
 //=========instructor creation========//
-router.route("/create-instructor",).post( authUser,authorizeRoles("admin"), createInstructor);
+router.route("/create-instructor").post( authUser,authorizeRoles("admin"), createInstructor);
 
 export default router
