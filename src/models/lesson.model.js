@@ -17,18 +17,16 @@ const lessonSchema = new mongoose.Schema(
         required: [true, "Lesson title is required"],
         trim: true
     },
+//later i will handle
+    // videoUrl: {
+    //     type: String,
+    //     required: [true, "Lesson video URL is required"]
+    // },
 
-    // Video URL (optional, but recommended)
-    videoUrl: {
-        type: String,
-        required: [true, "Lesson video URL is required"]
-    },
-
-    // Optional document or resource URL
-    resourceUrl: {
-        type: String,
-        default: ""
-    },
+    // resourceUrl: {
+    //     type: String,
+    //     default: ""
+    // },
 
     // Lesson duration in minutes
     duration: {

@@ -8,11 +8,12 @@
  * - Students can fetch lessons of courses they are enrolled in
  */
 
-import Lesson from "../models/Lesson.js";
-import Course from "../models/Course.js";
-import asyncHandler from "../utils/asyncHandler.js";
-import ApiResponse from "../utils/ApiResponse.js";
-import ApiError from "../utils/ApiError.js";
+import { Course } from "../models/course.model.js";
+import { Lesson } from "../models/lesson.model.js";
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+
 
 
 /**
@@ -38,7 +39,7 @@ export const createLesson = asyncHandler(async (req, res) => {
     if (!course) {
         throw new ApiError(404, "Course not found");
     }
-    if (course.instructor.toString() !== req.user.id) {
+    if (course.instructor.toString() !== req.user._id) {
         throw new ApiError(403, "You are not authorized to add lesson to this course");
     }
 
@@ -130,7 +131,7 @@ export const updateLesson = asyncHandler(async (req, res) => {
     }
 
     const course = await Course.findById(lesson.course);
-    if (course.instructor.toString() !== req.user.id) {
+    if (course.instructor.toString() !== req.user._id) {
         throw new ApiError(403, "You are not authorized to update this lesson");
     }
 
@@ -165,7 +166,7 @@ export const deleteLesson = asyncHandler(async (req, res) => {
     }
 
     const course = await Course.findById(lesson.course);
-    if (course.instructor.toString() !== req.user.id) {
+    if (course.instructor.toString() !== req.user._id) {
         throw new ApiError(403, "You are not authorized to delete this lesson");
     }
 

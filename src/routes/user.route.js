@@ -40,7 +40,7 @@ from "../controllers/lesson.controller.js";
 import { enrollCourse, getMyCourses, updateProgress } from "../controllers/entrollment.controller.js";
 
 router.route("/enroll").post( authUser, authorizeRoles("student"),enrollCourse);
-routerroute("/my-courses").get(authUser,authorizeRoles("student"),getMyCourses);
+router.route("/my-courses").get(authUser,authorizeRoles("student"),getMyCourses);
 router.route("/progress/:enrollmentId").put(authUser,authorizeRoles("student"),updateProgress);
 
 /**
@@ -48,11 +48,13 @@ router.route("/progress/:enrollmentId").put(authUser,authorizeRoles("student"),u
  * ADMIN ROUTES
  * ==========================================
  */
-import { deleteUser, getAllUsers, getAnalytics } from "../controllers/admin.controller.js";
+import { createInstructor, deleteUser, getAllUsers, getAnalytics } from "../controllers/admin.controller.js";
 
 router.route("/users").get(authUser,authorizeRoles("admin"),getAllUsers);
 router.route("/users/:id").delete(authUser,authorizeRoles("admin"),deleteUser);
 
 router.route("/analytics").get(authUser,authorizeRoles("admin"),getAnalytics);
+//=========instructor creation========//
+router.route("/create-instructor",).post( authUser,authorizeRoles("admin"), createInstructor);
 
 export default router

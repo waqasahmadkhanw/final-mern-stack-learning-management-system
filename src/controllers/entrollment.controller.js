@@ -1,12 +1,13 @@
 // Import models
-import Enrollment from "../models/Enrollment.js";
-import Course from "../models/Course.js";
+import { Course } from "../models/course.model.js";
+import { Enrollment } from "../models/enrollment.model.js";
+
 
 // Import utilities
-import asyncHandler from "../utils/asyncHandler.js";
-import ApiError from "../utils/ApiError.js";
-import ApiResponse from "../utils/ApiResponse.js";
 
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 
 /**
  * ==========================================
@@ -27,7 +28,7 @@ export const enrollCourse = asyncHandler(async (req, res) => {
 
     // Check duplicate enrollment
     const alreadyEnrolled = await Enrollment.findOne({
-        student: req.user.id,
+        student: req.user._id,
         course: courseId
     });
 
@@ -37,7 +38,7 @@ export const enrollCourse = asyncHandler(async (req, res) => {
 
     // Create enrollment
     const enrollment = await Enrollment.create({
-        student: req.user.id,
+        student: req.user._id,
         course: courseId
     });
 
@@ -58,7 +59,7 @@ export const enrollCourse = asyncHandler(async (req, res) => {
 export const getMyCourses = asyncHandler(async (req, res) => {
 
     const enrollments = await Enrollment.find({
-        student: req.user.id
+        student: req.user._id
     })
     .populate({
         path: "course",
@@ -94,7 +95,7 @@ export const updateProgress = asyncHandler(async (req, res) => {
     }
 
     // Ensure student owns this enrollment
-    if (enrollment.student.toString() !== req.user.id) {
+    if (enrollment.student.toString() !== req.user._id) {
         throw new ApiError(403, "Not authorized");
     }
 

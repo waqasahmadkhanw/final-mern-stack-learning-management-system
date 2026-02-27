@@ -71,6 +71,7 @@ const loginUser = asyncHandler(async (req, res) => {
   // STEP 1: Get data from req.body
   // -------------------------------
   const { email, password } = req.body;
+  console.log("email..".req.body)
 
   // -------------------------------
   // STEP 2: Validate fields

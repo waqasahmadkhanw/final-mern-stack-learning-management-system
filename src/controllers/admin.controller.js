@@ -1,14 +1,12 @@
 // Import models
-import User from "../models/User.js";
-import Course from "../models/Course.js";
-import Enrollment from "../models/Enrollment.js";
+
+import { Course } from "../models/course.model.js";
+import { User } from "../models/user.model.js";
 
 // Import utilities
-import asyncHandler from "../utils/asyncHandler.js";
-import ApiError from "../utils/ApiError.js";
-import ApiResponse from "../utils/ApiResponse.js";
-
-
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 /**
  * ==========================================
  * GET ALL USERS (Admin Only)
@@ -69,5 +67,35 @@ export const getAnalytics = asyncHandler(async (req, res) => {
             },
             "Analytics fetched successfully"
         )
+    );
+});
+
+/**
+ * ==========================================
+ * CREATE INSTRUCTOR (Admin Only)
+ * ==========================================
+ */
+
+export const createInstructor = asyncHandler(async (req,res) => {
+
+    const { name, email, password } = req.body;
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+        throw new ApiError(400, "User already exists");
+    }
+
+    // Create instructor
+    const instructor = await User.create({
+        name,
+        email,
+        password,   // auto hashed via pre-save middleware
+        role: "instructor"
+    });
+
+    return res.status(201).json(
+        new ApiResponse(201, instructor, "Instructor created successfully")
     );
 });
