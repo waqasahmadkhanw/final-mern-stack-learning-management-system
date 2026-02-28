@@ -1,11 +1,11 @@
-/**
- * =============================================
- * LESSON SCHEMA
- * =============================================
- * Purpose:
- * - Store lessons for each course
- * - Maintain course → lessons 1:N relationship
- */
+
+ //=============================================
+ //LESSON SCHEMA
+ //=============================================
+ //Purpose:
+ //- Store lessons for each course
+ //- Maintain course → lessons 1:N relationship
+ 
 
 import mongoose from "mongoose";
 
@@ -33,11 +33,6 @@ const lessonSchema = new mongoose.Schema(
         type: Number,
         default: 0
     },
-
-    /**
-     * Course Reference
-     * Connects lesson → Course
-     */
     course: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Course",

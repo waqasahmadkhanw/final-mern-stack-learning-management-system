@@ -4,21 +4,15 @@
 //use trycatch for error handling
 //connect through mongoose
 //export function
-import mongoose from "mongoose"; // WHAT: Import Mongoose library
+import mongoose from "mongoose";
                                  // WHY: To interact with MongoDB using schemas and models
 const Dbconnection = async () => { 
   try {
     const connection =await mongoose.connect(`${process.env.MONGODB_URI}`)
     console.log(`✅ MongoDB connected! Host: ${connection.connection.host}`);
-    // WHAT: Log successful connection
-    // WHY: Confirm database is connected
-    
+
   } catch (error) {
     console.error("❌ MongoDB connection FAILED", error);
-    // WHAT: Log connection error
-    // WHY: Identify issues in DB connection
-    // HOW: Using console.error
-    // WHERE: Server console
     process.exit(1);
     // WHAT: Stop server
     // WHY: Server cannot run without DB
@@ -37,6 +31,4 @@ mongoose.connection.on("disconnected", () => {
 });
 
 export default Dbconnection; 
-// WHAT: Export DB connection function
 // WHY: To reuse in server.js or other modules
-//

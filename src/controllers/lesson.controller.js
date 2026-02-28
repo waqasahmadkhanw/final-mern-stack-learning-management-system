@@ -1,12 +1,12 @@
-/**
- * =============================================================
- * LESSON CONTROLLER
- * =============================================================
- * Purpose:
- * - Handle CRUD operations for Lessons
- * - Only instructors can create/update/delete
- * - Students can fetch lessons of courses they are enrolled in
- */
+
+ // =============================================================
+// LESSON CONTROLLER
+// =============================================================
+ //Purpose:
+ //- Handle CRUD operations for Lessons
+ //- Only instructors can create/update/delete
+ // - Students can fetch lessons of courses they are enrolled in
+ 
 
 import { Course } from "../models/course.model.js";
 import { Lesson } from "../models/lesson.model.js";
@@ -16,22 +16,23 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 
 
 
-/**
- * =============================================
- * CREATE LESSON
- * =============================================
- * Access: Instructor only
- * Steps:
- * 1. Validate required fields
- * 2. Verify instructor owns the course
- * 3. Create lesson linked to course
- */
+
+ // =============================================
+ // CREATE LESSON
+ // =============================================
+ // Access: Instructor only
+ // Steps:
+ // 1. Validate required fields
+ // 2. Verify instructor owns the course
+ // 3. Create lesson linked to course
+ ///
 export const createLesson = asyncHandler(async (req, res) => {
 
-    const { title, videoUrl, resourceUrl, duration, course: courseId } = req.body;
+    const { title, duration, course: courseId } = req.body;
+    console.log("course lesson",req.body)
 
-    if (!title || !videoUrl || !courseId) {
-        throw new ApiError(400, "Title, videoUrl, and course ID are required");
+    if (!title || !courseId) {
+        throw new ApiError(400, "Title, and course ID are required");
     }
 
     // Verify instructor owns the course
@@ -39,14 +40,14 @@ export const createLesson = asyncHandler(async (req, res) => {
     if (!course) {
         throw new ApiError(404, "Course not found");
     }
-    if (course.instructor.toString() !== req.user._id) {
+    if (course.instructor.toString() !== req.user._id.toString()) {
         throw new ApiError(403, "You are not authorized to add lesson to this course");
     }
 
     const lesson = await Lesson.create({
         title,
-        videoUrl,
-        resourceUrl,
+        // videoUrl,
+        // resourceUrl,
         duration,
         course: courseId
     });
@@ -57,21 +58,23 @@ export const createLesson = asyncHandler(async (req, res) => {
 });
 
 
-/**
- * =============================================
- * GET LESSONS BY COURSE
- * =============================================
- * Access: Student (enrolled) or Instructor
- * Steps:
- * 1. Validate course ID
- * 2. Fetch lessons of the course
- * 3. Populate course info (optional)
- */
-export const getLessonsByCourse = asyncHandler(async (req, res) => {
+
+ // =============================================
+ // GET LESSONS BY COURSE
+ // =============================================
+ // Access: Student (enrolled) or Instructor
+ // Steps:
+ // 1. Validate course ID
+ // 2. Fetch lessons of the course
+ // 3. Populate course info (optional)
+ export const getLessonsByCourse = asyncHandler(async (req, res) => {
 
     const { courseId } = req.params;
+    console.log("course id",courseId)
 
     const course = await Course.findById(courseId);
+    console.log("course ",course )
+
     if (!course) {
         throw new ApiError(404, "Course not found");
     }
@@ -83,17 +86,13 @@ export const getLessonsByCourse = asyncHandler(async (req, res) => {
         .status(200)
         .json(new ApiResponse(200, lessons, "Lessons fetched successfully"));
 });
-
-
-/**
- * =============================================
- * GET SINGLE LESSON
- * =============================================
- * Access: Student (enrolled) or Instructor
- * Steps:
- * 1. Fetch lesson by ID
- * 2. Return 404 if not found
- */
+ // =============================================
+ // GET SINGLE LESSON
+ // =============================================
+ // Access: Student (enrolled) or Instructor
+ // Steps:
+ // 1. Fetch lesson by ID
+ // 2. Return 404 if not found
 export const getSingleLesson = asyncHandler(async (req, res) => {
 
     const { id } = req.params;
@@ -111,16 +110,16 @@ export const getSingleLesson = asyncHandler(async (req, res) => {
 });
 
 
-/**
- * =============================================
- * UPDATE LESSON
- * =============================================
- * Access: Instructor only
- * Steps:
- * 1. Fetch lesson
- * 2. Verify instructor owns the course
- * 3. Update lesson details
- */
+
+ //=============================================
+ //UPDATE LESSON
+ //=============================================
+ //Access: Instructor only
+ //Steps:
+ //1. Fetch lesson
+ //2. Verify instructor owns the course
+ //3. Update lesson details
+ 
 export const updateLesson = asyncHandler(async (req, res) => {
 
     const { id } = req.params;
@@ -144,29 +143,30 @@ export const updateLesson = asyncHandler(async (req, res) => {
         .status(200)
         .json(new ApiResponse(200, updatedLesson, "Lesson updated successfully"));
 });
-
-
-/**
- * =============================================
- * DELETE LESSON
- * =============================================
- * Access: Instructor only
- * Steps:
- * 1. Fetch lesson
- * 2. Verify instructor owns the course
- * 3. Delete lesson
- */
+//=============================================
+//DELETE LESSON
+//=============================================
+//Access: Instructor only
+//Steps:
+//1. Fetch lesson
+//2. Verify instructor owns the course
+//3. Delete lesson
 export const deleteLesson = asyncHandler(async (req, res) => {
 
     const { id } = req.params;
+    console.log("id",id)
 
     const lesson = await Lesson.findById(id);
+    console.log("lesson",lesson)
+
     if (!lesson) {
         throw new ApiError(404, "Lesson not found");
     }
 
     const course = await Course.findById(lesson.course);
-    if (course.instructor.toString() !== req.user._id) {
+    console.log("coursew",course)
+
+    if (course.instructor.toString() !== req.user._id.toString()) {
         throw new ApiError(403, "You are not authorized to delete this lesson");
     }
 

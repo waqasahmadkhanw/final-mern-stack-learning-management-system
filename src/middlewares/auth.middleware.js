@@ -23,8 +23,7 @@ import jwt from "jsonwebtoken"
         
     }
     }
-    export default authUser
-//admin
+    
 // ==========================================
 // ROLE AUTHORIZATION MIDDLEWARE
 // ==========================================
@@ -33,7 +32,7 @@ import jwt from "jsonwebtoken"
 // WHY: Reusable for admin, instructor, etc.
 // HOW: Pass allowed roles as arguments
 
-export const authorizeRoles = (...allowedRoles) => {
+const authorizeRoles = (...allowedRoles) => {
   return (req,_, next) => {
 
     if (!req.user) {
@@ -47,3 +46,4 @@ export const authorizeRoles = (...allowedRoles) => {
     next();
   };
 };
+export {authUser,authorizeRoles}

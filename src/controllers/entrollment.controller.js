@@ -47,19 +47,29 @@ export const enrollCourse = asyncHandler(async (req, res) => {
     );
 
 });
-
-
-
-/**
- * ==========================================
- * GET MY COURSES (Student Dashboard)
- * ==========================================
- */
-
+ // ==========================================
+ // GET MY COURSES (Student Dashboard)
+ // ==========================================
+ // Purpose:
+ // - Only logged-in students can access
+ // - Validate req.user existence
+ // - Return empty array safely
 export const getMyCourses = asyncHandler(async (req, res) => {
 
+    // STEP 1: Check if user exists
+    if (!req.user) {
+        throw new ApiError(401, "Unauthorized access");
+    }
+
+    // STEP 2: Ensure role is student
+    // (Extra protection - even if middleware fails)
+    if (req.user.role !== "student") {
+        throw new ApiError(403, "Only students can access enrolled courses");
+    }
+
+    // STEP 3: Fetch enrollments
     const enrollments = await Enrollment.find({
-        student: req.user._id
+        student: req.user._id   // use _id not id
     })
     .populate({
         path: "course",
@@ -67,21 +77,28 @@ export const getMyCourses = asyncHandler(async (req, res) => {
             path: "instructor",
             select: "name email"
         }
-    });
+    })
+    .sort({ createdAt: -1 });
 
+    // STEP 4: Handle no enrollments case
+    if (!enrollments || enrollments.length === 0) {
+        return res.status(200).json(
+            new ApiResponse(200, [], "You are not enrolled in any courses yet")
+        );
+    }
+
+    // STEP 5: Return response
     return res.status(200).json(
-        new ApiResponse(200, enrollments, "My enrolled courses fetched")
+        new ApiResponse(200, enrollments, "My enrolled courses fetched successfully")
     );
-
 });
 
 
 
-/**
- * ==========================================
- * UPDATE PROGRESS
- * ==========================================
- */
+ //==========================================
+ // UPDATE PROGRESS
+ //==========================================
+ 
 
 export const updateProgress = asyncHandler(async (req, res) => {
 
@@ -95,7 +112,7 @@ export const updateProgress = asyncHandler(async (req, res) => {
     }
 
     // Ensure student owns this enrollment
-    if (enrollment.student.toString() !== req.user._id) {
+    if (enrollment.student.toString() !== req.user._id.toString()) {
         throw new ApiError(403, "Not authorized");
     }
 

@@ -75,27 +75,26 @@ export const getAnalytics = asyncHandler(async (req, res) => {
  * CREATE INSTRUCTOR (Admin Only)
  * ==========================================
  */
-
-export const createInstructor = asyncHandler(async (req,res) => {
+export const createInstructor = asyncHandler(async (req, res) => {
 
     const { name, email, password } = req.body;
+    console.log("here is password",password)
 
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
         throw new ApiError(400, "User already exists");
     }
 
-    // Create instructor
     const instructor = await User.create({
         name,
         email,
-        password,   // auto hashed via pre-save middleware
+        password,
         role: "instructor"
     });
 
     return res.status(201).json(
         new ApiResponse(201, instructor, "Instructor created successfully")
     );
+
 });

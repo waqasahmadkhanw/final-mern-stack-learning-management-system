@@ -8,7 +8,7 @@ required:true,
 trim:true
 },
 email:{
- type: String,                 // WHAT: User email address
+ type: String,                 
       required:[true,"Please enter email"], // WHY: Required for login
       unique: true,                 // WHY: No duplicate accounts
       lowercase: true,              // WHY: Avoid case-sensitive duplicates
@@ -22,7 +22,7 @@ required:true,
   minlength: 6,
 },
 role: {
-      type: String,                 // WHAT: User role
+      type: String,                 
       enum: ["admin", "instructor", "student"], // WHY: Restrict to valid roles
       default: "student"            // WHY: Default role for new users
     },

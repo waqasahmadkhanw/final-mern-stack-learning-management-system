@@ -7,7 +7,7 @@ import dotenv from "dotenv"
 dotenv.config()
 const createAdmin = async () => {
   try {
-    // 1. Connect to MongoDB using your existing function
+    // 1. Connect to MongoDB using  existing function
     await Dbconnection();          // this already logs "✅ MongoDB connected!"
     console.log('📦 Database connected for seeding');
 

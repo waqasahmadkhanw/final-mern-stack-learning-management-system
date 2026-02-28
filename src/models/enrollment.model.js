@@ -1,19 +1,6 @@
 // Import mongoose
 import mongoose from "mongoose";
 
-/**
- * ==========================================
- * ENROLLMENT SCHEMA
- * ==========================================
- * This schema links:
- * Student (User)
- * Course
- * 
- * Core LMS logic:
- * One student can enroll in many courses
- * One course can have many students
- */
-
 const enrollmentSchema = new mongoose.Schema(
 {
     // Reference to Student (User collection)
@@ -45,15 +32,6 @@ const enrollmentSchema = new mongoose.Schema(
 },
 { timestamps: true }
 );
-
-
-/**
- * ==========================================
- * PREVENT DUPLICATE ENROLLMENT
- * ==========================================
- * A student cannot enroll in same course twice
- */
+// A student cannot enroll in same course twice
 enrollmentSchema.index({ student: 1, course: 1 }, { unique: true });
-
-
 export const Enrollment= mongoose.model("Enrollment", enrollmentSchema);
