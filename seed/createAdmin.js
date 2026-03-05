@@ -22,7 +22,7 @@ const createAdmin = async () => {
     const newAdmin = await User.create({
       name: 'waqas',
       email: 'waqasahmadkhan@gmail.com',
-      password: '123456',       // will be auto-hashed by your User model's pre-save hook
+      password: '123456',       // will be auto-hashed by User model's pre-save hook
       role: 'admin'
     });
 

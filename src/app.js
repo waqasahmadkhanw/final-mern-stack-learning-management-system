@@ -6,7 +6,7 @@ const app=express()
 // WHY: Allow frontend to communicate with backend securely, including cookies
 // HOW: Restrict origin to environment variable and enable credentials
 app.use(cors({
-    origin:process.env.CORS_ORIGIN,
+    origin:process.env.CORS_ORIGIN ,
     credentials:true
 }))
 app.use(express.json({limit:"16kb"}))
@@ -18,7 +18,7 @@ app.use(cookieParser())
 
 //=====routes declarations====//
 import userRegRoute from "./routes/user.route.js"
-app.use("/api/v1/user",userRegRoute)
+app.use("/api/users",userRegRoute)
 // ============================================
 // MOUNT ROUTES (VERY IMPORTANT)
 // ============================================
@@ -28,6 +28,7 @@ import enrollmentRoutes from "./routes/enrollment.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 
 app.use("/api/courses", courseRoutes);
+// app.use("/api/instructor/courses", courseRoutes);
 app.use("/api/lessons", lessonRoutes);
 app.use("/api/enrollments", enrollmentRoutes);
 app.use("/api/admin", adminRoutes);

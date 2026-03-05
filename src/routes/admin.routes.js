@@ -11,7 +11,7 @@ import { authorizeRoles, authUser } from "../middlewares/auth.middleware.js";
 router.route("/users").get(authUser,authorizeRoles("admin"),getAllUsers);
 router.route("/users/:id").delete(authUser,authorizeRoles("admin"),deleteUser);
 
-router.route("/analytics").get(authUser,authorizeRoles("admin"),getAnalytics);
+router.route("/dashboard").get(authUser,authorizeRoles("admin"),getAnalytics);
 //=========instructor creation========//
 router.route("/create-instructor").post( authUser,authorizeRoles("admin"), createInstructor);
 export default router

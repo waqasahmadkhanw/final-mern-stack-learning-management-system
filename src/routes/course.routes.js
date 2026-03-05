@@ -4,8 +4,8 @@ import { createCourse, deleteCourse, getAllCourses, getSingleCourse,updateCourse
 } from "../controllers/course.controller.js";
 import { authorizeRoles, authUser } from "../middlewares/auth.middleware.js";
 //------public routes-------//
-router.route("/getall-courses").get(authUser,getAllCourses)
-router.route("/create-course").post(authUser,authorizeRoles("instructor"),createCourse)
+router.route("/").get(authUser,getAllCourses)
+router.route("/").post(authUser,authorizeRoles("instructor"),createCourse)
 router.route("/:id").get(getSingleCourse)
 //======INSTRUCTOR ROUTES======//
 router.route("/:id").put(authUser,authorizeRoles("instructor"),updateCourse)

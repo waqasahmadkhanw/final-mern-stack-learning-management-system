@@ -86,7 +86,7 @@ export const getMyCourses = asyncHandler(async (req, res) => {
             new ApiResponse(200, [], "You are not enrolled in any courses yet")
         );
     }
-
+console.log("enrllment dartaa",enrollments)
     // STEP 5: Return response
     return res.status(200).json(
         new ApiResponse(200, enrollments, "My enrolled courses fetched successfully")
