@@ -319,8 +319,6 @@ http://localhost:8000
 //📜 Student Declaration
 
 I confirm that this project is my original work and has not been copied from any unauthorized source.
-
-
 Student Name:Waqas Ahmad Khan__________________
 Signature: waqas______________________ahmad
 Date:08-03-2026

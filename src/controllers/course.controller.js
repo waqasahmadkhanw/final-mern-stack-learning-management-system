@@ -173,3 +173,24 @@ console.log("userid",req.user._id)
         .status(200)
         .json(new ApiResponse(200, null, "Course deleted successfully"));
 });
+export const getInstructorCourses = async (req, res) => {
+  try {
+
+    const instructorId = req.user.id;
+
+    const courses = await Course.find({
+      instructor: instructorId
+    }).populate("instructor", "name email");
+
+    res.status(200).json({
+      success: true,
+      courses
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+};
