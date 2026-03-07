@@ -290,7 +290,8 @@ frontend/
 └── main.jsx
 ⚙️ Installation & Setup
 1️⃣ Clone Repository
-git clone https://github.com/yourusername/mern-lms.git
+git clone backend: https://github.com/waqasahmadkhanw/final-mern-stack-learning-management-system
+git clone frontend: https://github.com/waqasahmadkhanw/final-frontend-learning-management-system-LMS-
 cd mern-lms
 2️⃣ Backend Setup
 cd backend
