@@ -41,7 +41,8 @@ userSchema.pre("save", async function () {
   if (!this.isModified("password")) return null;
   this.password =await bcrypt.hash(this.password,10);
   // next();
-});
+});//Note:in my case async and next can not work therefore during debugig icomment next() 
+//because next is a middleware
 //Compare password
 userSchema.methods.isPasswordCorrect=async function(password){
 return await bcrypt.compare(password,this.password)

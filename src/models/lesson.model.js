@@ -17,7 +17,7 @@ const lessonSchema = new mongoose.Schema(
         required: [true, "Lesson title is required"],
         trim: true
     },
-//later i will handle
+//later i will handle with cloudinary and multer use.
     // videoUrl: {
     //     type: String,
     //     required: [true, "Lesson video URL is required"]

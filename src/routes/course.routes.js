@@ -4,7 +4,8 @@ import { createCourse, deleteCourse, getAllCourses, getInstructorCourses, getSin
 } from "../controllers/course.controller.js";
 import { authorizeRoles, authUser } from "../middlewares/auth.middleware.js";
 //------public routes-------//
-// router.route("/").get(getAllCourses)
+// note :I do intentially to not show to non login ser to show my courses.therefore i can not do
+// router.route("/").get(getAllCourses), this route
 router.route("/").get(authUser,getAllCourses)
 router.route("/").post(authUser,authorizeRoles("instructor"),createCourse)
 router.route("/:id").get(getSingleCourse)

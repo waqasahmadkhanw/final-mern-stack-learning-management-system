@@ -1,0 +1,7 @@
+PORT=8000
+MONGODB_URI=mongodb+srv://waqasahmadkhan:addyourpassword@khanbaba.sg769rc.mongodb.net/
+CORS_ORIGIN=http://localhost:5173
+REFRESH_TOKEN_SECRET=sduifzxjcjkwedszcxjkHJK
+REFRESH_TOKEN_EXPIRY=10d
+ACCESS_TOKEN_SECRET=IJKLokdlcxkdc
+ACCESS_TOKEN_EXPIRY=1d

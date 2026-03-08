@@ -25,7 +25,7 @@ title: {
         type: Number,
         default: 0
     },
-
+    // Note: will be handle using cloudinary service.and file upload using multer middleware or express
     // Course Thumbnail Image later addting
     // thumbnail: {
     //     type: String,

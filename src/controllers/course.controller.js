@@ -19,7 +19,7 @@ export const createCourse = asyncHandler(async (req, res) => {
 
     // Destructure validated data from request body
     const { title, description, category, price } = req.body;
-console.log("course",req.body)
+// console.log("course",req.body)
     // Validate required fields
     if (!title || !description || !category) {
         throw new ApiError(400, "Title, description and category are required");
@@ -153,7 +153,7 @@ export const deleteCourse = asyncHandler(async (req, res) => {
     const { id } = req.params;
 
     const course = await Course.findById(id);
-console.log("course",course)
+// console.log("course",course)
 
     if (!course) {
         throw new ApiError(404, "Course not found");

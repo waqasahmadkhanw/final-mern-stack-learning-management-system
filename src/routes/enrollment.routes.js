@@ -7,6 +7,7 @@ const router=Router()
  */
 import { enrollCourse, getMyCourses, updateProgress } from "../controllers/entrollment.controller.js";
 import { authorizeRoles, authUser } from "../middlewares/auth.middleware.js";
+//due to security reason i do authorizeRoles("student")
 router.route("/enroll").post( authUser, authorizeRoles("student"),enrollCourse);
 router.route("/my-courses").get(authUser,authorizeRoles("student"),getMyCourses);
 router.route("/progress/:enrollmentId").put(authUser,authorizeRoles("student"),updateProgress);

@@ -1,6 +1,3 @@
-// ===============================================
-// AUTH CONTROLLER
-// ===============================================
 
 import { User } from "../models/user.model.js";
 import { ApiError } from "../utils/ApiError.js";
@@ -23,7 +20,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "All fields are required");
   }
 
-  // optional: Validate email format
+  // Note: Validate email format
 //   const emailRegex = /\S+@\S+\.\S+/;
 //   if (!emailRegex.test(email)) {
 //     throw new ApiError(400, "Invalid email format");

@@ -79,7 +79,7 @@ export const getAnalytics = asyncHandler(async (req, res) => {
 export const createInstructor = asyncHandler(async (req, res) => {
 
     const { name, email, password } = req.body;
-    console.log("here is password",password)
+    // console.log("here is password",password)
 
     const existingUser = await User.findOne({ email });
 
