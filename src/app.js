@@ -8,7 +8,7 @@ const app=express()
 // ---------note-------//
 // I keep frontend url in here intentially .the best thing to keep it in .env file
 app.use(cors({
-    origin:[process.env.CORS_ORIGIN||"https://final-frontend-learning-ma-git-305b48-waqasahmadkhanws-projects.vercel.app"],
+    origin:[process.env.CORS_ORIGIN||"/\.vercel\.app$/"],
     credentials:true
 }))
 app.use(express.json({limit:"16kb"}))
