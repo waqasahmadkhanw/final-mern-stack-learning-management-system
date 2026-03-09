@@ -5,15 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js",
-<<<<<<< HEAD
     "start": "node -r dotenv/config src/index.js",
     "seed:admin": "node seed/createAdmin"
-=======
-   "start": "node -r dotenv/config src/index.js",
-    "prod": "NODE_ENV=production node src/index.js",
-    "seed:admin": "node seed/createAdmin.js",
-    "build": "echo 'No build step required for backend'"
->>>>>>> 447b55c863b8537c0d36f1cb586968b106525b34
   },
   "keywords": [],
   "author": "",
@@ -22,7 +15,6 @@
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.9.0",
-    "cookie-parse": "^0.4.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
