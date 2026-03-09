@@ -3,9 +3,7 @@ import Dbconnection from "./db/index.js";
 import dotenv from "dotenv"
 // WHAT: Load environment variables from .env file
 // WHY: Allows using process.env for PORT, DB URI, etc.
-dotenv.config({
-    path:"./.env"
-})
+dotenv.config()
 Dbconnection()
 .then(()=>{
 app.listen(process.env.PORT||5000, () => {
