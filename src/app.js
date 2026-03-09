@@ -8,6 +8,7 @@ const app=express()
 // ---------note-------//
 // I keep frontend url in here intentially .the best thing to keep it in .env file
 app.use(cors({
+    // origin:"http://localhost:5173",
   origin: (origin, callback) => {
     if (!origin || origin.includes("vercel.app") || origin.includes("localhost")) {
       callback(null, true);
