@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js",
-    "start": "node -r dotenv/config src/index.js",
-    "seed:admin": "node seed/createAdmin"
+   "start": "node -r dotenv/config src/index.js",
+    "prod": "NODE_ENV=production node src/index.js",
+    "seed:admin": "node seed/createAdmin.js",
+    "build": "echo 'No build step required for backend'"
   },
   "keywords": [],
   "author": "",
