@@ -4,9 +4,11 @@ import cors from "cors"
 const app=express()
 // WHAT: Configure CORS middleware
 // WHY: Allow frontend to communicate with backend securely, including cookies
-// HOW: Restrict origin to environment variable and enable credentials
+// HOW: Restrict origin to environment variable and enable credentials 
+// ---------note-------//
+// I keep frontend url in here intentially .the best thing to keep it in .env file
 app.use(cors({
-    origin:process.env.CORS_ORIGIN,
+    origin:[process.env.CORS_ORIGIN||"https://final-frontend-learning-ma-git-305b48-waqasahmadkhanws-projects.vercel.app"],
     credentials:true
 }))
 app.use(express.json({limit:"16kb"}))
