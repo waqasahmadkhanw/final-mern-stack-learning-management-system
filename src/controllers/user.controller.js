@@ -86,7 +86,7 @@ console.log("ispassword",isPasswordValid)
     .cookie("accessToken", accessToken,options )
     .cookie("refreshToken", refreshToken,options)
     .json(
-      new ApiResponse(200, { user: loggedInUser,accessToken, refreshToken}, "User logged in successfully")
+      new ApiResponse(200, { user: loggedInUser, token: accessToken}, "User logged in successfully")
     );
 });
 //// ===============================================
