@@ -1,6 +1,7 @@
 const options={
 httpOnly:true,
 secure:true,
-sameSite: "none"
+sameSite: "none",
+  path:"/"
 }
 export default options
