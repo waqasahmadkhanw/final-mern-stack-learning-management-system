@@ -10,6 +10,26 @@ import hpp from "hpp";
 import xssClean from "xss-clean";
 
 const app=express()
+// WHAT: Configure CORS middleware
+// WHY: Allow frontend to communicate with backend securely, including cookies
+// HOW: Restrict origin to environment variable and enable credentials 
+// ---------note-------//
+// I keep frontend url in here intentially .the best thing to keep it in .env file
+app.use(cors({
+    // origin:"http://localhost:5173",
+    origin:[
+    "http://localhost:5173",
+    "https://final-frontend-learning-management-sandy.vercel.app"
+  ],
+  // origin: (origin, callback) => {
+  //   if (!origin || origin.includes("vercel.app") || origin.includes("localhost")) {
+  //     callback(null, true);
+  //   } else {
+  //     callback(new Error("Not allowed by CORS"));
+  //   }
+  // },
+  credentials: true
+}));
 /* ============================================
    🔐 SECURITY MIDDLEWARES
 ============================================ */
@@ -33,26 +53,7 @@ app.use(hpp());
 
 // 5️⃣ Prevent XSS attacks
 app.use(xssClean());
-// WHAT: Configure CORS middleware
-// WHY: Allow frontend to communicate with backend securely, including cookies
-// HOW: Restrict origin to environment variable and enable credentials 
-// ---------note-------//
-// I keep frontend url in here intentially .the best thing to keep it in .env file
-app.use(cors({
-    // origin:"http://localhost:5173",
-    origin:[
-    "http://localhost:5173",
-    "https://final-frontend-learning-management-sandy.vercel.app"
-  ],
-  // origin: (origin, callback) => {
-  //   if (!origin || origin.includes("vercel.app") || origin.includes("localhost")) {
-  //     callback(null, true);
-  //   } else {
-  //     callback(new Error("Not allowed by CORS"));
-  //   }
-  // },
-  credentials: true
-}));
+
 app.use(express.json({limit:"16kb"}))
 // WHAT: Parse URL-encoded form data
 app.use(express.urlencoded({extended:true,limit:"16kb"}))
