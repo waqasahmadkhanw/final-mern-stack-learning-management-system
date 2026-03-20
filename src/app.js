@@ -1,7 +1,38 @@
 import cookieParser from "cookie-parser"
 import express from "express"
 import cors from "cors"
+
+// 🔐 Security packages
+import helmet from "helmet";
+import morgan from "morgan";
+import rateLimit from "express-rate-limit";
+import hpp from "hpp";
+import xssClean from "xss-clean";
+
 const app=express()
+/* ============================================
+   🔐 SECURITY MIDDLEWARES
+============================================ */
+
+// 1️⃣ Helmet - secure HTTP headers
+app.use(helmet());
+
+// 2️⃣ Logger (important for debugging + monitoring)
+app.use(morgan("dev"));
+
+// 3️⃣ Rate Limiting - prevent brute force attacks
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 mins
+  max: 100, // limit each IP
+  message: "Too many requests, please try again later"
+});
+app.use("/api", limiter);
+
+// 4️⃣ Prevent HTTP Parameter Pollution
+app.use(hpp());
+
+// 5️⃣ Prevent XSS attacks
+app.use(xssClean());
 // WHAT: Configure CORS middleware
 // WHY: Allow frontend to communicate with backend securely, including cookies
 // HOW: Restrict origin to environment variable and enable credentials 
@@ -45,4 +76,19 @@ app.use("/api/courses", courseRoutes);
 app.use("/api/lessons", lessonRoutes);
 app.use("/api/enrollments", enrollmentRoutes);
 app.use("/api/admin", adminRoutes);
+
+
+
+/* ============================================
+   ❌ GLOBAL ERROR HANDLER (VERY IMPORTANT)
+============================================ */
+
+app.use((err, req, res, next) => {
+  console.error("Error:", err.message);
+
+  res.status(500).json({
+    success: false,
+    message: err.message || "Internal Server Error"
+  });
+});
 export default app
