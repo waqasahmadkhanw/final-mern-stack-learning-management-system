@@ -176,7 +176,7 @@ console.log("userid",req.user._id)
 export const getInstructorCourses = async (req, res) => {
   try {
 
-    const instructorId = req.user.id;
+    const instructorId = req.user._id;
 
     const courses = await Course.find({
       instructor: instructorId
